@@ -1,11 +1,11 @@
 const express = require ('express');
 const morgan = require ('morgan');
 
-const apps = express();
+const app = express();
 
-apps.use(morgan('common')); 
+app.use(morgan('common')); 
 const playstore = require('./playstore.js');
-apps.get('/apps', (req, res) => {
+app.get('/apps', (req, res) => {
   const { genres='',sort } =req.query;
   
   if(sort){
@@ -24,7 +24,7 @@ apps.get('/apps', (req, res) => {
   let results = playstore 
     .filter(game =>
       game
-        .App
+        
         .Genres
         .toLowerCase()
         .includes(genres.toLowerCase()));
@@ -39,5 +39,5 @@ apps.get('/apps', (req, res) => {
   
 });
 
-apps.listen(8080, ()=>{console.log('Server started on PORT 8080');
+app.listen(8080, ()=>{console.log('Server started on PORT 8080');
 });
